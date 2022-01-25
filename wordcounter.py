@@ -12,15 +12,15 @@ def get_file_contents(path):
     return content
 
 
-def filter_out_words(filecontent):
+def extract_words(text):
     pattern = r"\-*\'*\b\w+"
 
-    return re.findall(pattern, filecontent)
+    return re.findall(pattern, text)
 
 
 for filename in os.listdir(input_path):
     content = get_file_contents(os.path.join(input_path, filename))
-    word_list = filter_out_words(content)
+    word_list = extract_words(content)
 
     for word in word_list:
         if word not in global_dictionary.keys():
