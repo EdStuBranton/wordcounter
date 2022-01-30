@@ -1,7 +1,7 @@
 import re
 import os
+import sys
 
-input_path = "songs"
 global_dictionary = {}
 
 
@@ -18,8 +18,14 @@ def extract_words(text):
     return re.findall(pattern, text)
 
 
-for filename in os.listdir(input_path):
-    content = get_file_contents(os.path.join(input_path, filename))
+try:
+    filenames = os.listdir(sys.argv[1])
+except (IndexError, FileNotFoundError):
+    print("Please submit a valid directory path as first command line argument")
+    sys.exit(1)
+
+for filename in filenames:
+    content = get_file_contents(os.path.join(sys.argv[1], filename))
     word_list = extract_words(content)
 
     for word in word_list:
